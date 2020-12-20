@@ -7,6 +7,7 @@ import Pagination from "./components/Pagination";
 import queryString from "query-string";
 
 import "./App.scss";
+import PostFiltersFrom from "./components/PostFiltersForm";
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -24,6 +25,7 @@ function App() {
   const [filter, setFilter] = useState({
     _limit: 10,
     _page: 1,
+    title_like: "",
   });
 
   useEffect(() => {
@@ -37,7 +39,6 @@ function App() {
         const responseJSON = await response.json();
         const { data, pagination } = responseJSON;
         setPostList(data);
-        console.log(responseJSON);
         setPagination(pagination);
       } catch (error) {
         console.log("Failed to fecth post list:", error.message);
@@ -64,16 +65,24 @@ function App() {
     setTodoList(newTodoList);
   }
   function handlePageChange(newPage) {
-    console.log(newPage);
     setFilter({
       ...filter,
       _page: newPage,
+    });
+  }
+  function handleFiltersChange(newFilters) {
+    setFilter({
+      ...filter,
+      _page: 1,
+      title_like: newFilters.searchTerm,
     });
   }
 
   return (
     <div className="app">
       <h1>React Hook - TodoList</h1>
+
+      <PostFiltersFrom onSubmit={handleFiltersChange} />
       <PostList posts={postList} />
       <Pagination pagination={pagination} onPageChange={handlePageChange} />
       {/* <TodoForm onSubmit={handleTodoFormSubmit} /> */}
