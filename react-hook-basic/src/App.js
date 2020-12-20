@@ -3,6 +3,8 @@ import ColorBox from "./components/ColorBox";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
 import PostList from "./components/PostList";
+import Pagination from "./components/Pagination";
+import queryString from "query-string";
 
 import "./App.scss";
 
@@ -14,23 +16,35 @@ function App() {
   ]);
 
   const [postList, setPostList] = useState([]);
+  const [pagination, setPagination] = useState({
+    _page: 1,
+    _limit: 10,
+    _totalRow: 1,
+  });
+  const [filter, setFilter] = useState({
+    _limit: 10,
+    _page: 1,
+  });
 
   useEffect(() => {
     async function FetchPostList() {
       //...
       try {
-        const requestUrl =
-          "http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1";
+        //query-string
+        const paramsString = queryString.stringify(filter);
+        const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramsString}`;
         const response = await fetch(requestUrl);
         const responseJSON = await response.json();
-        const { data } = responseJSON;
+        const { data, pagination } = responseJSON;
         setPostList(data);
+        console.log(responseJSON);
+        setPagination(pagination);
       } catch (error) {
         console.log("Failed to fecth post list:", error.message);
       }
     }
     FetchPostList();
-  }, []);
+  }, [filter]);
 
   //function
   function handleTodoList(todo) {
@@ -49,11 +63,19 @@ function App() {
     newTodoList.push(newTodo);
     setTodoList(newTodoList);
   }
+  function handlePageChange(newPage) {
+    console.log(newPage);
+    setFilter({
+      ...filter,
+      _page: newPage,
+    });
+  }
 
   return (
     <div className="app">
       <h1>React Hook - TodoList</h1>
       <PostList posts={postList} />
+      <Pagination pagination={pagination} onPageChange={handlePageChange} />
       {/* <TodoForm onSubmit={handleTodoFormSubmit} /> */}
       {/* <TodoList todos={todoList} onTodoClick={handleTodoList} /> */}
       {/* <ColorBox /> */}
