@@ -92,12 +92,12 @@ function App() {
       {showClock && <Clock />}
       <BetterClock />
       <MagicBox />
-      {/* <PostFiltersFrom onSubmit={handleFiltersChange} />
+      <PostFiltersFrom onSubmit={handleFiltersChange} />
       <PostList posts={postList} />
-      <Pagination pagination={pagination} onPageChange={handlePageChange} /> */}
-      {/* <TodoForm onSubmit={handleTodoFormSubmit} /> */}
-      {/* <TodoList todos={todoList} onTodoClick={handleTodoList} /> */}
-      {/* <ColorBox /> */}
+      <Pagination pagination={pagination} onPageChange={handlePageChange} />
+      <TodoForm onSubmit={handleTodoFormSubmit} />
+      <TodoList todos={todoList} onTodoClick={handleTodoList} />
+      <ColorBox />
     </div>
   );
 }
