@@ -21,7 +21,7 @@ function randomColor(currentColor) {
   const currentIndex = colorList.indexOf(currentColor);
   let newIndex = currentIndex;
   while (newIndex === currentIndex) {
-    newIndex = Math.trunc(Math.random() * colorList.length);
+    newIndex = Math.trunc(Math.random() * colorList.length + 1);
   }
 
   return colorList[newIndex];

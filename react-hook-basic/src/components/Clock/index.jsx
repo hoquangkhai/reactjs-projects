@@ -1,5 +1,5 @@
 import React from 'react';
-import useClock from '../../customHook/useClock/useClock';
+import useClock from '../../customHook/useClock';
 
 import './style.scss'
 
