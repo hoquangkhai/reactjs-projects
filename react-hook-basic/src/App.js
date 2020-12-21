@@ -9,6 +9,8 @@ import queryString from "query-string";
 import "./App.scss";
 import PostFiltersFrom from "./components/PostFiltersForm";
 import Clock from "./components/Clock";
+import BetterClock from "./components/BetterClock";
+import MagicBox from "./components/MagicBox";
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -88,9 +90,11 @@ function App() {
       <h1>React Hook - Clock</h1>
       <button onClick={handleShowClock}>Hide Clock</button>
       {showClock && <Clock />}
-      <PostFiltersFrom onSubmit={handleFiltersChange} />
+      <BetterClock />
+      <MagicBox />
+      {/* <PostFiltersFrom onSubmit={handleFiltersChange} />
       <PostList posts={postList} />
-      <Pagination pagination={pagination} onPageChange={handlePageChange} />
+      <Pagination pagination={pagination} onPageChange={handlePageChange} /> */}
       {/* <TodoForm onSubmit={handleTodoFormSubmit} /> */}
       {/* <TodoList todos={todoList} onTodoClick={handleTodoList} /> */}
       {/* <ColorBox /> */}
