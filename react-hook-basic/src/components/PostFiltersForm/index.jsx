@@ -25,7 +25,7 @@ function PostFiltersFrom(props) {
         searchTerm: e.target.value
       };
       onSubmit(formValues);
-    },500)
+    },300)
   }
 
   return (

@@ -8,6 +8,7 @@ import queryString from "query-string";
 
 import "./App.scss";
 import PostFiltersFrom from "./components/PostFiltersForm";
+import Clock from "./components/Clock";
 
 function App() {
   const [todoList, setTodoList] = useState([
@@ -78,10 +79,15 @@ function App() {
     });
   }
 
+  const [showClock, setShowClock] = useState(true);
+  function handleShowClock() {
+    return setShowClock(!showClock);
+  }
   return (
     <div className="app">
-      <h1>React Hook - TodoList</h1>
-
+      <h1>React Hook - Clock</h1>
+      <button onClick={handleShowClock}>Hide Clock</button>
+      {showClock && <Clock />}
       <PostFiltersFrom onSubmit={handleFiltersChange} />
       <PostList posts={postList} />
       <Pagination pagination={pagination} onPageChange={handlePageChange} />
