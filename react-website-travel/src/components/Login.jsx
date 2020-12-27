@@ -7,7 +7,6 @@ function Login(props) {
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const {location} = props;
-  console.log(location);
   //function
   const handleInput = (e) => {
     let name = e.target.name;
@@ -45,7 +44,12 @@ function Login(props) {
   //neu da dang nhap se chuyen den trang products
   if (getlocalStorage()) {
     return (
-      <Redirect to='/products' />
+      <Redirect to= {{
+        pathname: './products',
+        state: {
+          from: location,
+        }
+      }} />
     )
   }
 

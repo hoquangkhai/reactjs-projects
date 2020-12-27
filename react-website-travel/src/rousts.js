@@ -31,7 +31,9 @@ const routes = [
   {
     path: "/products",
     exact: false,
-    main: ({ match }) => <Products match={match} />,
+    main: ({ match, location }) => (
+      <Products match={match} location={location} />
+    ),
   },
   {
     path: "/login",

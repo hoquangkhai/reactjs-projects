@@ -32,8 +32,9 @@ const products = [
 
 
 function Products(props) {
-  const {match} = props;
+  const {match, location} = props;
   let url = match.url;
+  console.log(location)
 
 //fuction
 const showProducts = (products) => {
