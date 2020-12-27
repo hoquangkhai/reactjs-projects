@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, NavLink, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 //quản lý menu phòng trường hợp lấy menu từ Sever
 
@@ -22,6 +22,11 @@ const headerMenus = [
   {
     label: "Services",
     to: "/service",
+    activeOnlyWhenExact: false,
+  },
+  {
+    label: "Login",
+    to: "/login",
     activeOnlyWhenExact: false,
   },
   {
