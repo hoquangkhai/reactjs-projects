@@ -24,6 +24,11 @@ const headerMenus = [
     to: "/service",
     activeOnlyWhenExact: false,
   },
+  {
+    label: "Products",
+    to: "/products",
+    activeOnlyWhenExact: true,
+  },
 ];
 
 // customLink
