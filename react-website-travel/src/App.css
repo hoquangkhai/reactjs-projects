@@ -5,3 +5,10 @@
   color: red;
 }
 
+.btn--green {
+  background-color: lightgreen;
+}
+.btn--red {
+  background-color: red;
+}
+
