@@ -1,0 +1,37 @@
+.result {
+  padding-left: 150px;
+  padding-right: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  & .result-top {
+    padding: 10px;
+    & .result-text {
+      color: black
+    }
+  }
+  & .result-bot {
+    & .result-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 20px;
+      outline: none;
+    }
+    & .red {
+      color: red;
+      border: 1px solid red;
+    }
+    & .green {
+      color: green;
+      border: 1px solid green;
+    }
+    & .blue {
+      color: blue;
+      border: 1px solid blue;
+    }
+    & .purple {
+      color: purple;
+      border: 1px solid purple;
+    }
+  }
+}

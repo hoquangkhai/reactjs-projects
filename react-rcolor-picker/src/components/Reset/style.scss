@@ -1,0 +1,18 @@
+.reset {
+  padding-left: 10px;
+  & .btn {
+    display: inline-block;
+    background: blue;
+    color: white;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+  }
+}

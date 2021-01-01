@@ -1,0 +1,33 @@
+.sizeSetting {
+  width: 500px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  & .sizeSetting-top {
+    width: 500px;
+    & p {
+      padding: 10px;
+      color: white;
+      background: red;
+    }
+  }
+  & .sizeSetting-bot {
+    width: 500px;
+    & .btn {
+      display: inline-block;
+      background: rgb(17, 236, 17);
+      letter-spacing: 1px;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
