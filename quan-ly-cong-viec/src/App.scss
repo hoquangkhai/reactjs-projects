@@ -1,3 +1,43 @@
-h1 {
-  color: red;
+.app {
+  margin: 0 5%;
+  & .app-heading {
+    font-size: 40px;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid rgb(77, 76, 76);
+  }
+  & .app-body {
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+    & .container-right {
+      margin-left: 20px;
+      & .container-right-heading {
+        padding: 10px;
+        & .btn {
+            border: none;
+            outline: none;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            &:hover {
+              opacity: 0.8;
+            }
+        }
+        & .btn-right {
+          background: blue;
+          color: white;
+        }
+      }
+      & .container-right-body {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px
+      }
+
+    }
+  }
 }
