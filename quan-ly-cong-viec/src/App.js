@@ -53,8 +53,10 @@ const generateID = () => {
   );
 };
 /** end function de random id */
+
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [isDisplayForm, setIsDisplayForm] = useState(false);
 
   useEffect(() => {
     let tasks;
@@ -69,7 +71,7 @@ function App() {
       <h1 className="app-heading">Quản lý công việc</h1>
       <div className="app-body">
         <div className="container-left">
-          <TaskForm />
+          {isDisplayForm ? <TaskForm /> : ""}
         </div>
 
         <div className="container-right">
