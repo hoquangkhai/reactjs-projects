@@ -1,6 +1,19 @@
 import React from 'react';
 import './style.scss'
-function TaskList(props) {
+import TaskList from './TaskList'
+
+function Tasks(props) {
+  const {tasks} = props;
+
+  let elementTask = tasks.map((task, index) => {
+    return <TaskList
+              task = {task}
+              index ={index}
+              key = {task.id}
+            />
+  })
+
+
   return (
     <div className='taskList'>
       <div className="taskList-heading">
@@ -22,25 +35,9 @@ function TaskList(props) {
         <p></p>
       </div>
         {/** duyet qua đe them */}
-      <div className="taskList-body">
-        <p>1</p>
-        <p>Học ReactJS</p>
-        <p>
-          <button className='btn btn-active'>
-            Kick Hoat
-          </button>
-        </p>
-        <p>
-          <button className='btn btn-change'>
-            Sửa
-          </button>
-          <button className='btn btn-delete'>
-            Xóa
-          </button>
-        </p>
-      </div>
+      {elementTask}
     </div>
   );
 }
 
-export default TaskList;
+export default Tasks;
