@@ -2,11 +2,15 @@ import React from 'react';
 import './style.scss'
 
 function TaskItem(props) {
-  const {task, index, onUpdateStatus} = props;
+  const {task, index, onUpdateStatus, onDelete} = props;
+
   const onHandleStatus = () => {
     onUpdateStatus(task.id)
   }
 
+  const onHandleDelete = () => {
+    onDelete(task.id)
+  }
   return (
       <div className="taskList-body">
         <p>{index}</p>
@@ -23,7 +27,9 @@ function TaskItem(props) {
           <button className='btn btn-change'>
             Sửa
           </button>
-          <button className='btn btn-delete'>
+          <button className='btn btn-delete'
+                  onClick={onHandleDelete}
+          >
             Xóa
           </button>
         </p>

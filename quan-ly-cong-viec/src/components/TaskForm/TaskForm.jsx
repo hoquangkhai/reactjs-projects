@@ -71,7 +71,7 @@ function TaskForm(props) {
           </div>
 
           <div className="form-group">
-          <button type='submit' className='btn btn-add'>Kích Hoạt</button>
+          <button type='submit' className='btn btn-add'>Them Cong viec</button>
           </div>
         </form>
 

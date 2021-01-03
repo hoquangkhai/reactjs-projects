@@ -106,6 +106,16 @@ function App() {
       localStorage.setItem("tasks", JSON.stringify(tasks));
     }
   };
+
+  const onDelete = (id) => {
+    let index = findIndex(id);
+    if (index !== -1) {
+      tasks.splice(index, 1);
+      setTasks([...tasks]);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+    onCloseForm();
+  };
   //function End
   return (
     <div className="app">
@@ -132,7 +142,11 @@ function App() {
           </div>
 
           <div className="container-right-footer">
-            <TaskList tasks={tasks} onUpdateStatus={onUpdateStatus} />
+            <TaskList
+              tasks={tasks}
+              onUpdateStatus={onUpdateStatus}
+              onDelete={onDelete}
+            />
           </div>
         </div>
       </div>
