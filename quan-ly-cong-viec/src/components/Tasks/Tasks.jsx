@@ -4,14 +4,16 @@ import TaskList from './TaskList'
 
 function Tasks(props) {
   const {tasks} = props;
-
-  let elementTask = tasks.map((task, index) => {
-    return <TaskList
-              task = {task}
-              index ={index}
-              key = {task.id}
-            />
-  })
+  let elementTask
+  if(tasks !== []) {
+     elementTask = tasks.map((task, index) => {
+      return <TaskList
+                task = {task}
+                index ={index}
+                key = {task.id}
+              />
+    })
+  }
 
 
   return (
