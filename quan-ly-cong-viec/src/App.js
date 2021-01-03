@@ -3,7 +3,7 @@ import "./App.scss";
 import Search from "./components/Control/Search";
 import Sort from "./components/Control/Sort";
 import TaskForm from "./components/TaskForm/TaskForm";
-import Tasks from "./components/Tasks/Tasks";
+import TaskList from "./components/Tasks/TaskList";
 
 // const onGenerateData = () => {
 //   let tasks = [
@@ -87,6 +87,25 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     setTasks([...tasks]);
   };
+  //tim Index cua task can thay doi Status trong tasks
+  const findIndex = (id) => {
+    let result = -1;
+    tasks.forEach((task, index) => {
+      if (task.id === id) {
+        result = index;
+      }
+    });
+    return result;
+  };
+
+  const onUpdateStatus = (id) => {
+    let index = findIndex(id);
+    if (index !== -1) {
+      tasks[index].status = !tasks[index].status;
+      setTasks([...tasks]);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  };
   //function End
   return (
     <div className="app">
@@ -113,7 +132,7 @@ function App() {
           </div>
 
           <div className="container-right-footer">
-            <Tasks tasks={tasks} />
+            <TaskList tasks={tasks} onUpdateStatus={onUpdateStatus} />
           </div>
         </div>
       </div>

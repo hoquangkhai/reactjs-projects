@@ -1,29 +1,46 @@
 import React from 'react';
 import './style.scss'
+import TaskItem from './TaskItem';
 
 function TaskList(props) {
-  const {task, index} = props;
+  const {tasks, onUpdateStatus} = props;
+
+  let elementTask;
+  if(tasks) {
+     elementTask = tasks.map((task, index) => {
+      return <TaskItem
+                task = {task}
+                index ={index}
+                key = {task.id}
+                onUpdateStatus={onUpdateStatus}
+              />
+    })
+  }
+
 
   return (
-      <div className="taskList-body">
-        <p>{index}</p>
-        <p>{task.name}</p>
-        <p>
-          <button
-           className={task.status ? 'btn btn-active' : 'btn btn-hide'}>
-           {task.status ? 'Kích Hoạt' : 'Ẩn đi'}
-          </button>
-        </p>
-        <p>
-          <button className='btn btn-change'>
-            Sửa
-          </button>
-          <button className='btn btn-delete'>
-            Xóa
-          </button>
-        </p>
+    <div className='taskList'>
+      <div className="taskList-heading">
+        <p>STT</p>
+        <p>Tên</p>
+        <p>Trạng Thái</p>
+        <p>Hành Động</p>
       </div>
-
+      <div className="taskList-slice">
+        <p></p>
+        <p><input type="text" placeholder='search'/></p>
+        <p>
+          <select>
+            <option value="0">Tất Cả</option>
+            <option value="1">Ẩn</option>
+            <option value="2">Kích Hoạt</option>
+          </select>
+        </p>
+        <p></p>
+      </div>
+        {/** duyet qua đe them */}
+      {elementTask}
+    </div>
   );
 }
 
