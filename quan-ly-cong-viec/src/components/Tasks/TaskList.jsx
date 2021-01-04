@@ -3,7 +3,7 @@ import './style.scss'
 import TaskItem from './TaskItem';
 
 function TaskList(props) {
-  const {tasks, onUpdateStatus, onDelete} = props;
+  const {tasks, onUpdateStatus, onDelete, onUpdate} = props;
 
   let elementTask;
   if(tasks) {
@@ -14,6 +14,7 @@ function TaskList(props) {
                 key = {task.id}
                 onUpdateStatus={onUpdateStatus}
                 onDelete={onDelete}
+                onUpdate={onUpdate}
               />
     })
   }

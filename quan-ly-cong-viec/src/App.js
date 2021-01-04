@@ -56,6 +56,7 @@ const generateID = () => {
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isDisplayForm, setIsDisplayForm] = useState(true);
+  const [taskEditing, setTaskEditing] = useState();
 
   useEffect(() => {
     // onGenerateData();
@@ -70,23 +71,44 @@ function App() {
   //function start
 
   const onToggleForm = () => {
-    setIsDisplayForm(!isDisplayForm);
+    if (isDisplayForm && taskEditing !== undefined) {
+      setIsDisplayForm(true);
+      setTaskEditing();
+    } else {
+      setIsDisplayForm(!isDisplayForm);
+      setTaskEditing();
+    }
   };
 
   const onCloseForm = () => {
     setIsDisplayForm(false);
   };
 
+  const onShowForm = () => {
+    setIsDisplayForm(true);
+  };
+
   const onSubmit = (data) => {
-    let newTask = {
-      id: generateID(),
-      name: data.name,
-      status: data.status,
-    };
-    tasks.push(newTask);
+    let newTask;
+
+    if (data.id === "") {
+      newTask = {
+        id: generateID(),
+        name: data.name,
+        status: data.status,
+      };
+      tasks.push(newTask);
+    } else {
+      //editing
+      var index = findIndex(data.id);
+      tasks[index] = data;
+    }
+
     localStorage.setItem("tasks", JSON.stringify(tasks));
     setTasks([...tasks]);
+    setTaskEditing();
   };
+
   //tim Index cua task can thay doi Status trong tasks
   const findIndex = (id) => {
     let result = -1;
@@ -116,6 +138,16 @@ function App() {
     }
     onCloseForm();
   };
+
+  const onUpdate = (id) => {
+    let index = findIndex(id);
+    var taskEdit = tasks[index];
+    setTaskEditing({
+      ...taskEditing,
+      ...taskEdit,
+    });
+    onShowForm();
+  };
   //function End
   return (
     <div className="app">
@@ -123,7 +155,11 @@ function App() {
       <div className="app-body">
         <div className="container-left">
           {isDisplayForm ? (
-            <TaskForm onCloseForm={onCloseForm} onSubmit={onSubmit} />
+            <TaskForm
+              onCloseForm={onCloseForm}
+              onSubmit={onSubmit}
+              task={taskEditing}
+            />
           ) : (
             ""
           )}
@@ -146,6 +182,7 @@ function App() {
               tasks={tasks}
               onUpdateStatus={onUpdateStatus}
               onDelete={onDelete}
+              onUpdate={onUpdate}
             />
           </div>
         </div>

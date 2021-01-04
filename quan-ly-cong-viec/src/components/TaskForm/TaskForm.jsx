@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.scss'
 
 function TaskForm(props) {
-  const {onCloseForm, onSubmit} =props;
+  const {onCloseForm, onSubmit, task, } =props;
 
   //Hook
   const [formValue, setFormValue] = useState({
+    id: '',
     name: '',
     status: false
   })
+
+//conponentwillmount
+  useEffect(() => {
+
+    if(task) {
+      setFormValue({
+        ...formValue,
+        ...task,
+      })
+    } else if (!task) {
+      setFormValue({
+        id: '',
+        name: '',
+        status: false
+      })
+    }
+  },[task])
+
+
 
   //function start
   const onChange = (event) => {
@@ -43,7 +63,9 @@ function TaskForm(props) {
   return (
     <div className='taskForm'>
       <div className="taskForm-heading">
-        <h3>Thêm Công Việc</h3>
+        <h3>
+          {formValue.id !== '' ? 'Cập nhật công việc' : 'Thêm Công Việc'}
+        </h3>
         <button className='btn btn-close'
         onClick = {onCloseForm}>Đóng</button>
       </div>

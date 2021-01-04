@@ -2,7 +2,7 @@ import React from 'react';
 import './style.scss'
 
 function TaskItem(props) {
-  const {task, index, onUpdateStatus, onDelete} = props;
+  const {task, index, onUpdateStatus, onDelete, onUpdate} = props;
 
   const onHandleStatus = () => {
     onUpdateStatus(task.id)
@@ -10,6 +10,10 @@ function TaskItem(props) {
 
   const onHandleDelete = () => {
     onDelete(task.id)
+  }
+
+  const onHandleUpdate = () => {
+    onUpdate(task.id)
   }
   return (
       <div className="taskList-body">
@@ -24,7 +28,9 @@ function TaskItem(props) {
           </button>
         </p>
         <p>
-          <button className='btn btn-change'>
+          <button className='btn btn-change'
+                  onClick={onHandleUpdate}
+          >
             Sửa
           </button>
           <button className='btn btn-delete'
