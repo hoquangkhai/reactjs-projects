@@ -57,6 +57,10 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [isDisplayForm, setIsDisplayForm] = useState(true);
   const [taskEditing, setTaskEditing] = useState();
+  const [filter, setFilter] = useState({
+    name: "",
+    status: -1,
+  });
 
   useEffect(() => {
     // onGenerateData();
@@ -148,6 +152,35 @@ function App() {
     });
     onShowForm();
   };
+
+  const onFilter = (filterValue) => {
+    filterValue.status = parseInt(filterValue.status, 10);
+    setFilter({
+      ...filter,
+      ...filterValue,
+    });
+  };
+
+  //  Xử lý logic vs JS //
+  //vong lap khi filter
+  let tasksList = [...tasks]; //copy ra 1 vung nho rieng
+  if (filter) {
+    if (filter.name) {
+      tasksList = tasksList.filter((task) => {
+        return (
+          task.name.toLowerCase().indexOf(filter.name.toLowerCase()) !== -1
+        );
+      });
+    }
+    tasksList = tasksList.filter((task) => {
+      if (filter.status === -1) {
+        return task;
+      } else {
+        return task.status === (filter.status === 1 ? true : false);
+      }
+    });
+  }
+
   //function End
   return (
     <div className="app">
@@ -179,7 +212,8 @@ function App() {
 
           <div className="container-right-footer">
             <TaskList
-              tasks={tasks}
+              onFilter={onFilter}
+              tasks={tasksList}
               onUpdateStatus={onUpdateStatus}
               onDelete={onDelete}
               onUpdate={onUpdate}

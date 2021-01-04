@@ -1,9 +1,16 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import './style.scss'
 import TaskItem from './TaskItem';
 
 function TaskList(props) {
-  const {tasks, onUpdateStatus, onDelete, onUpdate} = props;
+  const {tasks, onUpdateStatus, onDelete, onUpdate, onFilter} = props;
+
+  const [filter, setFilter] = useState({
+    name: '',
+    status: -1,
+  })
+   // all:-1; active:1; deactive:0;
 
   let elementTask;
   if(tasks) {
@@ -19,6 +26,23 @@ function TaskList(props) {
     })
   }
 
+  const onChange = (event) => {
+      let target = event.target;
+      let key = target.name;
+      let value = target.value;
+
+      onFilter({
+        name: key==='name' ? value : filter.name,
+        status: key ==='status' ? value : filter.status
+      })
+
+      setFilter({
+          ...filter,
+          [key] : value,
+        })
+   }
+
+
 
   return (
     <div className='taskList'>
@@ -30,12 +54,21 @@ function TaskList(props) {
       </div>
       <div className="taskList-slice">
         <p></p>
-        <p><input type="text" placeholder='search'/></p>
+        <p><input
+         type="text"
+        placeholder='search'
+        name='name'
+        value={filter.name}
+        onChange={onChange}/></p>
         <p>
-          <select>
-            <option value="0">Tất Cả</option>
-            <option value="1">Ẩn</option>
-            <option value="2">Kích Hoạt</option>
+          <select
+          name='status'
+          value={filter.status}
+          onChange={onChange}
+          >
+            <option value={-1}>Tất Cả</option>
+            <option value={0}>Ẩn</option>
+            <option value={1}>Kích Hoạt</option>
           </select>
         </p>
         <p></p>
