@@ -61,7 +61,11 @@ function App() {
     name: "",
     status: -1,
   });
-
+  const [keyword, setKeyword] = useState();
+  const [sort, setSort] = useState({
+    sortName: "",
+    status: 0,
+  });
   useEffect(() => {
     // onGenerateData();
     let tasks;
@@ -161,9 +165,24 @@ function App() {
     });
   };
 
+  const onSearch = (searchValue) => {
+    setKeyword({
+      ...keyword,
+      ...searchValue,
+    });
+  };
+
+  const onSort = (sortValue) => {
+    sortValue.status = parseInt(sortValue.status, 10);
+    setSort({
+      ...sort,
+      ...sortValue,
+    });
+  };
   //  Xử lý logic vs JS //
   //vong lap khi filter
   let tasksList = [...tasks]; //copy ra 1 vung nho rieng
+
   if (filter) {
     if (filter.name) {
       tasksList = tasksList.filter((task) => {
@@ -181,6 +200,36 @@ function App() {
     });
   }
 
+  if (keyword) {
+    if (keyword.keyword) {
+      tasksList = tasksList.filter((task) => {
+        return (
+          task.name.toLowerCase().indexOf(keyword.keyword.toLowerCase()) !== -1
+        );
+      });
+    }
+  }
+
+  if (sort) {
+    if (sort.sortName) {
+      // console.log(sort);
+      // console.log(tasksList);
+      if (sort.status === 0 || sort.status === 1) {
+        console.log("dang o day az");
+        tasksList.sort((a, b) => {
+          if (sort.status === 0) return a.name > b.name ? 1 : -1;
+          if (sort.status === 1) return a.name > b.name ? -1 : 1;
+        });
+      }
+      if (sort.status === 2 || sort.status === 3) {
+        console.log("dang o day An <=> Kick Hoat");
+        tasksList.sort((a, b) => {
+          if (sort.status === 2) return a.status > b.status ? -1 : 1;
+          if (sort.status === 3) return a.status > b.status ? 1 : -1;
+        });
+      }
+    }
+  }
   //function End
   return (
     <div className="app">
@@ -206,8 +255,8 @@ function App() {
           </div>
 
           <div className="container-right-body">
-            <Search />
-            <Sort />
+            <Search onSearch={onSearch} />
+            <Sort onSort={onSort} />
           </div>
 
           <div className="container-right-footer">
