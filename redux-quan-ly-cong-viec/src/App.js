@@ -4,7 +4,8 @@ import Search from "./components/Control/Search";
 import Sort from "./components/Control/Sort";
 import TaskForm from "./components/TaskForm/TaskForm";
 import TaskList from "./components/Tasks/TaskList";
-
+import { connect } from "react-redux";
+import * as actions from "./actions/index";
 // const onGenerateData = () => {
 //   let tasks = [
 //     {
@@ -27,8 +28,9 @@ import TaskList from "./components/Tasks/TaskList";
 //   return [];
 // };
 
-function App() {
-  const [isDisplayForm, setIsDisplayForm] = useState(true);
+function App(props) {
+  const { isDisplayForm, onToggleForm } = props;
+
   const [taskEditing, setTaskEditing] = useState();
   const [filter, setFilter] = useState({
     name: "",
@@ -42,22 +44,19 @@ function App() {
 
   //function start
 
-  const onToggleForm = () => {
-    if (isDisplayForm && taskEditing !== undefined) {
-      setIsDisplayForm(true);
-      setTaskEditing();
-    } else {
-      setIsDisplayForm(!isDisplayForm);
-      setTaskEditing();
-    }
-  };
-
-  const onCloseForm = () => {
-    setIsDisplayForm(false);
+  const onHandleToggleForm = () => {
+    onToggleForm();
+    // if (isDisplayForm && taskEditing !== undefined) {
+    //   setIsDisplayForm(true);
+    //   setTaskEditing();
+    // } else {
+    //   setIsDisplayForm(!isDisplayForm);
+    //   setTaskEditing();
+    // }
   };
 
   const onShowForm = () => {
-    setIsDisplayForm(true);
+    // setIsDisplayForm(true);
   };
 
   //tim Index cua task can thay doi Status trong tasks
@@ -171,16 +170,12 @@ function App() {
       <h1 className="app-heading">Quản lý công việc</h1>
       <div className="app-body">
         <div className="container-left">
-          {isDisplayForm ? (
-            <TaskForm onCloseForm={onCloseForm} task={taskEditing} />
-          ) : (
-            ""
-          )}
+          {isDisplayForm ? <TaskForm task={taskEditing} /> : ""}
         </div>
 
         <div className="container-right">
           <div className="container-right-heading">
-            <button className="btn btn-right" onClick={onToggleForm}>
+            <button className="btn btn-right" onClick={onHandleToggleForm}>
               Thêm Công Việc
             </button>
           </div>
@@ -205,4 +200,18 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isDisplayForm: state.isDisplayForm,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onToggleForm: () => {
+      dispatch(actions.toggleForm());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

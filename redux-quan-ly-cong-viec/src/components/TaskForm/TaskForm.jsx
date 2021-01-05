@@ -61,6 +61,10 @@ function TaskForm(props) {
       status: false
     })
   }
+
+  const onHandleCloseForm = () => {
+    onCloseForm();
+  }
   //function end
 
   return (
@@ -70,7 +74,7 @@ function TaskForm(props) {
           {formValue.id !== '' ? 'Cập nhật công việc' : 'Thêm Công Việc'}
         </h3>
         <button className='btn btn-close'
-        onClick = {onCloseForm}>Đóng</button>
+        onClick = {onHandleCloseForm}>Đóng</button>
       </div>
       <div className="taskFrom-body">
         <form onSubmit={onHandleSubmit}>
@@ -117,6 +121,9 @@ const mapDisptchToProps =  (dispatch, props) => {
   return {
     onAddTask: (task) => {
       dispatch(actions.addTask(task));
+    },
+    onCloseForm: () => {
+      dispatch(actions.closeForm())
     }
   }
 }
