@@ -26,11 +26,19 @@ const randomID = () => {
 };
 /** end function de random id */
 
+const findIndex = (tasks, id) => {
+  let result = -1;
+  tasks.forEach((task, index) => {
+    if (task.id === id) {
+      result = index;
+    }
+  });
+  return result;
+};
+
 let data = JSON.parse(localStorage.getItem("tasks"));
 
 let initialState = data ? data : [];
-console.log(types.LIST_ALL);
-console.log(types.ADD_TASK);
 
 const myReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -47,6 +55,16 @@ const myReducer = (state = initialState, action) => {
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
 
+    case types.UPDATE_STATUS_TASK:
+      let index = findIndex(state, action.id);
+      if (index !== -1) {
+        state[index] = {
+          ...state[index],
+          status: !state[index].status,
+        };
+        localStorage.setItem("tasks", JSON.stringify(state));
+      }
+      return [...state];
     default:
       return state;
   }

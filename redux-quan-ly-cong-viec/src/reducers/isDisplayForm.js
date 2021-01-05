@@ -1,9 +1,6 @@
 import * as types from "./../constants/ActionTypes";
 
 let initialState = false;
-console.log(types.TOGGLE_FORM);
-console.log(types.CLOSE_FORM);
-console.log(types.OPEN_FORM);
 
 const myReducer = (state = initialState, action) => {
   switch (action.type) {

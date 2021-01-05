@@ -5,7 +5,7 @@ import TaskItem from './TaskItem';
 import { connect } from 'react-redux';
 
 function TaskList(props) {
-  const {tasks, onUpdateStatus, onDelete, onUpdate, onFilter} = props;
+  const {tasks, onDelete, onUpdate, onFilter} = props;
 
   const [filter, setFilter] = useState({
     name: '',
@@ -20,7 +20,6 @@ function TaskList(props) {
                 task = {task}
                 index ={index}
                 key = {task.id}
-                onUpdateStatus={onUpdateStatus}
                 onDelete={onDelete}
                 onUpdate={onUpdate}
               />

@@ -70,15 +70,6 @@ function App(props) {
     // return result;
   };
 
-  const onUpdateStatus = (id) => {
-    // let index = findIndex(id);
-    // if (index !== -1) {
-    //   tasks[index].status = !tasks[index].status;
-    //   setTasks([...tasks]);
-    //   localStorage.setItem("tasks", JSON.stringify(tasks));
-    // }
-  };
-
   const onDelete = (id) => {
     // let index = findIndex(id);
     // if (index !== -1) {
@@ -188,8 +179,6 @@ function App(props) {
           <div className="container-right-footer">
             <TaskList
               onFilter={onFilter}
-              // tasks={tasksList}
-              onUpdateStatus={onUpdateStatus}
               onDelete={onDelete}
               onUpdate={onUpdate}
             />

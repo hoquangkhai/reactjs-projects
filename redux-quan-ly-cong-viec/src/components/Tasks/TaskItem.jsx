@@ -1,5 +1,7 @@
 import React from 'react';
 import './style.scss'
+import { connect } from 'react-redux';
+import * as actions from './../../actions/index'
 
 function TaskItem(props) {
   const {task, index, onUpdateStatus, onDelete, onUpdate} = props;
@@ -44,4 +46,16 @@ function TaskItem(props) {
   );
 }
 
-export default TaskItem;
+const mapStatetoProps = (state) => {
+  return {}
+}
+
+const mapDisptchToProps =  (dispatch, props) => {
+  return {
+    onUpdateStatus: (id) => {
+      dispatch(actions.updateStatus(id))
+    }
+  }
+}
+
+export default connect(mapStatetoProps, mapDisptchToProps)(TaskItem);

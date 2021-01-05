@@ -1,8 +1,5 @@
 import * as types from "./../constants/ActionTypes";
 
-console.log(types.LIST_ALL);
-console.log(types.ADD_TASK);
-
 export const listAll = () => {
   return {
     type: types.LIST_ALL,
@@ -31,5 +28,12 @@ export const closeForm = () => {
 export const openForm = () => {
   return {
     type: types.OPEN_FORM,
+  };
+};
+
+export const updateStatus = (id) => {
+  return {
+    type: types.UPDATE_STATUS_TASK,
+    id,
   };
 };
