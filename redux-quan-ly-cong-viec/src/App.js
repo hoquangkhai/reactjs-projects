@@ -27,34 +27,7 @@ import TaskList from "./components/Tasks/TaskList";
 //   return [];
 // };
 
-/** start function de random id */
-const S4 = () => {
-  return Math.floor((1 + Math.random()) * 0x10000)
-    .toString(16)
-    .substring(1);
-}; //random 1 chuoi
-
-const generateID = () => {
-  return (
-    S4() +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4()
-  );
-};
-/** end function de random id */
-
 function App() {
-  // const [tasks, setTasks] = useState([]);
   const [isDisplayForm, setIsDisplayForm] = useState(true);
   const [taskEditing, setTaskEditing] = useState();
   const [filter, setFilter] = useState({
@@ -85,25 +58,6 @@ function App() {
 
   const onShowForm = () => {
     setIsDisplayForm(true);
-  };
-
-  const onSubmit = (data) => {
-    // let newTask;
-    // if (data.id === "") {
-    //   newTask = {
-    //     id: generateID(),
-    //     name: data.name,
-    //     status: data.status,
-    //   };
-    //   tasks.push(newTask);
-    // } else {
-    //   //editing
-    //   var index = findIndex(data.id);
-    //   tasks[index] = data;
-    // }
-    // localStorage.setItem("tasks", JSON.stringify(tasks));
-    // setTasks([...tasks]);
-    // setTaskEditing();
   };
 
   //tim Index cua task can thay doi Status trong tasks
@@ -147,18 +101,18 @@ function App() {
   };
 
   const onFilter = (filterValue) => {
-    // filterValue.status = parseInt(filterValue.status, 10);
-    // setFilter({
-    //   ...filter,
-    //   ...filterValue,
-    // });
+    filterValue.status = parseInt(filterValue.status, 10);
+    setFilter({
+      ...filter,
+      ...filterValue,
+    });
   };
 
   const onSearch = (searchValue) => {
-    // setKeyword({
-    //   ...keyword,
-    //   ...searchValue,
-    // });
+    setKeyword({
+      ...keyword,
+      ...searchValue,
+    });
   };
 
   const onSort = (sortValue) => {
@@ -170,58 +124,55 @@ function App() {
   };
   //  Xử lý logic vs JS //
   //vong lap khi filter
-  // let tasksList = [...tasks];
+  // let tasksList = [...tasks];nho rieng
 
-  // if (filter) {
-  //   if (filter.name) {
-  //     tasksList = tasksList.filter((task) => {
-  //       return (
-  //         task.name.toLowerCase().indexOf(filter.name.toLowerCase()) !== -1
-  //       );
-  //     });
-  //   }
-  //   tasksList = tasksList.filter((task) => {
-  //     if (filter.status === -1) {
-  //       return task;
-  //     } else {
-  //       return task.status === (filter.status === 1 ? true : false);
-  //     }
-  //   });
-  // }
+  if (filter) {
+    // if (filter.name) {
+    //   tasksList = tasksList.filter((task) => {
+    //     return (
+    //       task.name.toLowerCase().indexOf(filter.name.toLowerCase()) !== -1
+    //     );
+    //   });
+    // }
+    // tasksList = tasksList.filter((task) => {
+    //   if (filter.status === -1) {
+    //     return task;
+    //   } else {
+    //     return task.status === (filter.status === 1 ? true : false);
+    //   }
+    // });
+  }
 
-  // if (keyword) {
-  //   if (keyword.keyword) {
-  //     tasksList = tasksList.filter((task) => {
-  //       return (
-  //         task.name.toLowerCase().indexOf(keyword.keyword.toLowerCase()) !== -1
-  //       );
-  //     });
-  //   }
-  // }
+  if (keyword) {
+    // if (keyword.keyword) {
+    //   tasksList = tasksList.filter((task) => {
+    //     return (
+    //       task.name.toLowerCase().indexOf(keyword.keyword.toLowerCase()) !== -1
+    //     );
+    //   });
+    // }
+  }
 
-  // if (sort) {
-  //   if (sort.sortName) {
-  //     // console.log(sort);
-  //     tasksList.sort((a, b) => {
-  //       if (sort.status === 0) return a.name > b.name ? 1 : -1;
-  //       if (sort.status === 1) return a.name > b.name ? -1 : 1;
-  //       if (sort.status === 2) return a.status > b.status ? -1 : 1;
-  //       if (sort.status === 3) return a.status > b.status ? 1 : -1;
-  //     });
-  //   }
-  // }
+  if (sort) {
+    // if (sort.sortName) {
+    //   // console.log(sort);
+    //   tasksList.sort((a, b) => {
+    //     if (sort.status === 0) return a.name > b.name ? 1 : -1;
+    //     if (sort.status === 1) return a.name > b.name ? -1 : 1;
+    //     if (sort.status === 2) return a.status > b.status ? -1 : 1;
+    //     if (sort.status === 3) return a.status > b.status ? 1 : -1;
+    //   });
+    // }
+  }
   //function End
+
   return (
     <div className="app">
       <h1 className="app-heading">Quản lý công việc</h1>
       <div className="app-body">
         <div className="container-left">
           {isDisplayForm ? (
-            <TaskForm
-              onCloseForm={onCloseForm}
-              onSubmit={onSubmit}
-              task={taskEditing}
-            />
+            <TaskForm onCloseForm={onCloseForm} task={taskEditing} />
           ) : (
             ""
           )}

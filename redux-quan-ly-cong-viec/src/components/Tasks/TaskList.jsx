@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import './style.scss'
 import TaskItem from './TaskItem';
-import {connect} from "react-redux"
+import { connect } from 'react-redux';
 
 function TaskList(props) {
-  const {tasks, onUpdateStatus, onDelete, onUpdate, onFilter,} = props;
+  const {tasks, onUpdateStatus, onDelete, onUpdate, onFilter} = props;
 
   const [filter, setFilter] = useState({
     name: '',
@@ -43,6 +43,8 @@ function TaskList(props) {
         })
    }
 
+
+
   return (
     <div className='taskList'>
       <div className="taskList-heading">
@@ -78,9 +80,10 @@ function TaskList(props) {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStatetoProps = (state) => {
   return {
     tasks: state.tasks,
   }
 }
-export default connect(mapStateToProps, null)  (TaskList);
+
+export default  connect(mapStatetoProps,null)(TaskList);

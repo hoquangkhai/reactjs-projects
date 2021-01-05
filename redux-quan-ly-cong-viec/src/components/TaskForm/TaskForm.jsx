@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss'
-import {connect} from 'react-redux'
-import * as actions from "./../../actions/index"
-
+import { connect } from 'react-redux'
+import * as actions from './../../actions/index'
 function TaskForm(props) {
-  const {onCloseForm, onSubmit, task, } =props;
+
+  const {onCloseForm, onAddTask, task, } =props;
 
   //Hook
   const [formValue, setFormValue] = useState({
@@ -49,7 +49,8 @@ function TaskForm(props) {
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(formValue)
+    // onSubmit(formValue)
+    onAddTask(formValue)
     onClear();
     onCloseForm();
   }
@@ -108,14 +109,16 @@ function TaskForm(props) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStatetoProps = (state) => {
   return {}
 }
-const mapDispatchToProps = (dispatch, props) => {
+
+const mapDisptchToProps =  (dispatch, props) => {
   return {
-    onAddTask: task => {
-      dispatch(actions.addTask(task))
+    onAddTask: (task) => {
+      dispatch(actions.addTask(task));
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);
+
+export default connect(mapStatetoProps, mapDisptchToProps)(TaskForm);
