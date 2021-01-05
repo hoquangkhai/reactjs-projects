@@ -213,21 +213,12 @@ function App() {
   if (sort) {
     if (sort.sortName) {
       // console.log(sort);
-      // console.log(tasksList);
-      if (sort.status === 0 || sort.status === 1) {
-        console.log("dang o day az");
-        tasksList.sort((a, b) => {
-          if (sort.status === 0) return a.name > b.name ? 1 : -1;
-          if (sort.status === 1) return a.name > b.name ? -1 : 1;
-        });
-      }
-      if (sort.status === 2 || sort.status === 3) {
-        console.log("dang o day An <=> Kick Hoat");
-        tasksList.sort((a, b) => {
-          if (sort.status === 2) return a.status > b.status ? -1 : 1;
-          if (sort.status === 3) return a.status > b.status ? 1 : -1;
-        });
-      }
+      tasksList.sort((a, b) => {
+        if (sort.status === 0) return a.name > b.name ? 1 : -1;
+        if (sort.status === 1) return a.name > b.name ? -1 : 1;
+        if (sort.status === 2) return a.status > b.status ? -1 : 1;
+        if (sort.status === 3) return a.status > b.status ? 1 : -1;
+      });
     }
   }
   //function End
