@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import * as actions from './../../actions/index'
 function TaskForm(props) {
 
-  const {onCloseForm, onAddTask, task, } =props;
-
+  const {onCloseForm, onSaveTask,  isDisplayForm, itemEditing } =props;
   //Hook
   const [formValue, setFormValue] = useState({
     id: '',
@@ -16,19 +15,15 @@ function TaskForm(props) {
 //conponentwillmount
   useEffect(() => {
 
-    if(task) {
+    if(itemEditing) {
       setFormValue({
         ...formValue,
-        ...task,
+        ...itemEditing,
       })
-    } else if (!task) {
-      setFormValue({
-        id: '',
-        name: '',
-        status: false
-      })
+    } else if (!itemEditing) {
+      onClear()
     }
-  },[task])
+  },[itemEditing])
 
 
 
@@ -49,24 +44,25 @@ function TaskForm(props) {
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
-    // onSubmit(formValue)
-    onAddTask(formValue)
+    onSaveTask(formValue)
     onClear();
     onCloseForm();
   }
 
   const onClear = () => {
-    setFormValue({
-      name: '',
-      status: false
-    })
+      setFormValue({
+        ...formValue,
+        id: itemEditing.id,
+        name: '',
+        status: false,
+      })
   }
 
   const onHandleCloseForm = () => {
     onCloseForm();
   }
   //function end
-
+  if(!isDisplayForm) return null;
   return (
     <div className='taskForm'>
       <div className="taskForm-heading">
@@ -114,13 +110,16 @@ function TaskForm(props) {
 }
 
 const mapStatetoProps = (state) => {
-  return {}
+  return {
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.itemEditing,
+  }
 }
 
 const mapDisptchToProps =  (dispatch, props) => {
   return {
-    onAddTask: (task) => {
-      dispatch(actions.addTask(task));
+    onSaveTask: (task) => {
+      dispatch(actions.saveTask(task));
     },
     onCloseForm: () => {
       dispatch(actions.closeForm())

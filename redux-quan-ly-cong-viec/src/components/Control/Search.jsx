@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './style.scss'
+import { connect } from "react-redux";
+import * as actions from "./../../actions/index";
+
 
 function Search(props) {
   const {onSearch} = props
@@ -43,4 +46,16 @@ function Search(props) {
   );
 }
 
-export default Search;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onSearch: (keyword) => {
+      dispatch(actions.searchTask(keyword));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

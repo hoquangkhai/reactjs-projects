@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import './style.scss'
+import { connect } from "react-redux";
+import * as actions from "./../../actions/index";
 
 function Sort(props) {
-  const {onSort} = props;
+  const {onSortTask} = props;
 
   const [sortValue, setSortValue] = useState({
-    sortName: 'sortName',
-    status: 0,
+    by: 'sortName',
+    value: 0,
   })
 
   const onHandlechange = (event) => {
     let target = event.target;
     let key = target.name;
     let value = target.value;
-    onSort({
-      sortName: key,
-      status: value
+    onSortTask({
+      by: key,
+      value: value,
     })
     setSortValue({
       ...sortValue,
-      sortName: key,
-      status: value
+      by: key,
+      value: value,
     })
   }
   return (
@@ -39,5 +41,16 @@ function Sort(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {};
+};
 
-export default Sort;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onSortTask: (sort) => {
+      dispatch(actions.sortTask(sort));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sort);

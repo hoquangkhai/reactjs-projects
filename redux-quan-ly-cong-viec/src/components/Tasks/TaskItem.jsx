@@ -4,18 +4,22 @@ import { connect } from 'react-redux';
 import * as actions from './../../actions/index'
 
 function TaskItem(props) {
-  const {task, index, onUpdateStatus, onDelete, onUpdate} = props;
+  const {task, index, onUpdateStatus, onDeleteTask, onCloseForm, onOpenForm, onEditTask} = props;
 
+  /* function*/
   const onHandleStatus = () => {
     onUpdateStatus(task.id)
   }
 
   const onHandleDelete = () => {
-    onDelete(task.id)
+    onDeleteTask(task.id)
+    onCloseForm()
   }
 
-  const onHandleUpdate = () => {
-    onUpdate(task.id)
+  const onHandleEditTask = () => {
+    onOpenForm()
+    onEditTask(task)
+
   }
   return (
       <div className="taskList-body">
@@ -31,7 +35,7 @@ function TaskItem(props) {
         </p>
         <p>
           <button className='btn btn-change'
-                  onClick={onHandleUpdate}
+                  onClick={onHandleEditTask}
           >
             Sửa
           </button>
@@ -52,8 +56,20 @@ const mapStatetoProps = (state) => {
 
 const mapDisptchToProps =  (dispatch, props) => {
   return {
+    onDeleteTask: (id) => {
+      dispatch(actions.deleteStatus(id))
+    },
     onUpdateStatus: (id) => {
       dispatch(actions.updateStatus(id))
+    },
+    onCloseForm: () => {
+      dispatch(actions.closeForm())
+    },
+    onOpenForm: () => {
+      dispatch(actions.openForm())
+    },
+    onEditTask: (task) => {
+      dispatch(actions.editTask(task))
     }
   }
 }
