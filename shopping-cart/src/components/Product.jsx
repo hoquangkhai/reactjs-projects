@@ -1,8 +1,8 @@
 import React from "react";
-
+import * as Message from './../constants/Message'
 
 function Product(props) {
-  const {product, onAddTocart} = props;
+  const {product, onAddTocart, onChangeMessage} = props;
   //function
   const showRatings = rating => {
     let result =[];
@@ -18,6 +18,7 @@ function Product(props) {
 
   const onHandleAddTocart = product => {
     onAddTocart(product)
+    onChangeMessage(Message.MSG_ADD_TO_CART_SUCCESS)
   }
   //function
 

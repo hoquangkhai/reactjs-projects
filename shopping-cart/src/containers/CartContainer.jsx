@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Cart from './../components/Cart';
 import CartItem from './../components/CartItem';
 import CartResult from './../components/CartResult';
+import {actDeleteProductInCart, actOnChangeMessage, actUpdateProductInCart} from './../actions/index'
 import * as Message from './../constants/Message';
 
 CartContainer.propTypes = {
@@ -21,6 +22,11 @@ CartContainer.propTypes = {
       quantity: PropTypes.number.isRequired,
     })
   ).isRequired,
+
+  onDeleteProductInCart: PropTypes.func.isRequired,
+  onChangeMessage: PropTypes.func.isRequired,
+  onUpdateProductInCart: PropTypes.func.isRequired,
+
 };
 
 // CartContainer.defaultProps = {
@@ -30,7 +36,7 @@ CartContainer.propTypes = {
 
 
 function CartContainer(props) {
-  const {cart} = props
+  const {cart, onDeleteProductInCart, onChangeMessage, onUpdateProductInCart } = props
   //function
   const showCartItem = cart => {
     let result = Message.MSG_CART_EMPTY;
@@ -41,6 +47,9 @@ function CartContainer(props) {
           key={index}
           item={item}
           index={index}
+          onDeleteProductInCart={onDeleteProductInCart}
+          onChangeMessage={onChangeMessage}
+          onUpdateProductInCart={onUpdateProductInCart}
           />
         )
       })
@@ -74,4 +83,19 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null) (CartContainer);
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onDeleteProductInCart: product => {
+      dispatch(actDeleteProductInCart(product))
+    },
+
+    onChangeMessage: message => {
+      dispatch(actOnChangeMessage(message))
+    },
+    onUpdateProductInCart: (product, quantity) => {
+      dispatch(actUpdateProductInCart(product, quantity))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartContainer);

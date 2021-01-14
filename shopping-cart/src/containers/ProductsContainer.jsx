@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Products from "../components/Products";
 import Product from './../components/Product'
 import PropTypes from 'prop-types';
-import {actAddToCart} from './../actions/index'
+import {actAddToCart, actOnChangeMessage} from './../actions/index'
 
 ProductsContainer.propTypes = {
   products: PropTypes.arrayOf(
@@ -17,6 +17,7 @@ ProductsContainer.propTypes = {
               rating: PropTypes.number.isRequired,
             })
   ).isRequired,
+  onChangeMessage: PropTypes.func.isRequired,
 };
 
 // ProductsContainer.defaultProps = {
@@ -26,7 +27,7 @@ ProductsContainer.propTypes = {
 
 
 function ProductsContainer(props) {
-  const {products, onAddTocart} = props;
+  const {products, onAddTocart, onChangeMessage} = props;
 
   //function
     const showProduct = products => {
@@ -34,7 +35,10 @@ function ProductsContainer(props) {
     if(products) {
       result = products.map((product, index) => {
         return <Product
-        key={index} product={product} onAddTocart={onAddTocart} />
+        key={index}
+        product={product}
+        onAddTocart={onAddTocart}
+        onChangeMessage={onChangeMessage} />
       });
     }
     return result;
@@ -58,6 +62,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddTocart: (product) => {
       dispatch(actAddToCart(product, 1))
+    },
+    onChangeMessage: message => {
+      dispatch(actOnChangeMessage(message))
     }
   }
 }

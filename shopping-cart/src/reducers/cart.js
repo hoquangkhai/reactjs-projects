@@ -17,9 +17,9 @@ const findProductInCart = (cart, product) => {
 
 const cart = (state = innitialSate, action) => {
   let index = -1;
+  let { product, quantity } = action;
   switch (action.type) {
     case Types.ADD_TO_CART:
-      let { product, quantity } = action;
       index = findProductInCart(state, product);
       if (index !== -1) {
         state[index].quantity += quantity;
@@ -29,7 +29,23 @@ const cart = (state = innitialSate, action) => {
           quantity: quantity,
         });
       }
-      localStorage.setItem("CART", JSON.stringify([...state]));
+      localStorage.setItem("CART", JSON.stringify(state));
+      return [...state];
+
+    case Types.DELETE_PRODUCT_IN_CART:
+      index = findProductInCart(state, product);
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
+      localStorage.setItem("CART", JSON.stringify(state));
+      return [...state];
+
+    case Types.UPDATE_PRODUCT_IN_CART:
+      index = findProductInCart(state, product);
+      if (index !== -1) {
+        state[index].quantity = quantity;
+      }
+      localStorage.setItem("CART", JSON.stringify(state));
       return [...state];
     default:
       return [...state];
